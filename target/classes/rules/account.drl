@@ -1,0 +1,23 @@
+package rules
+
+import com.pheonix.drools.model.Account
+import com.pheonix.drools.error.CustomMessage
+import com.pheonix.drools.error.CustomMessages
+
+global CustomMessages messages
+
+rule "check account balance should not be less than 10k"
+	dialect "java" 
+	when
+  		account : Account(accountBalance < 10000)
+  	then
+  		messages.addMessage("accountBalance", "Warning Message!!! Your account balance is not maintained. Please maintain the account balance for avoiding any extra charges" );
+end
+
+rule "check name length should be between 5 to 15 characters"
+	dialect "java" 
+	when
+		account : Account(name.length < 5 || name.length > 15)
+	then
+		messages.addMessage("name", "Name lenght must be between 5 to 15 characters!!!" );
+end
